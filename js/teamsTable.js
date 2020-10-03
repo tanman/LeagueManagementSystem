@@ -2,7 +2,7 @@ class teamsTable {
     "use strict";
     constructor(){
         this.template = `
-        <table class="table table-striped table-responsive-md">
+        <table class="table table-striped table-responsive-md table-dark table-hover">
           <thead class="thead-dark">
             <tr>
               <th scope="col">Team Name</th>

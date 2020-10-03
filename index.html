@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="assets/css/starter.css">
     <link rel="stylesheet" href="assets/css/main.css">
     <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.css">
-    <title>Bootstrap npm starter</title>
-  </head>
-  <body>
+    <link rel="icon" type="image/jpg" href="assets/img/league2.png"/>
+    
+    <title>League Management System</title>
     <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-      <a class="navbar-brand" href="#">League Management System</a>
+      <a class="navbar-brand" href="#"> <img src="assets/img/league2.png" width="50" height="50"> League Management System</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -29,11 +29,43 @@
         </ul>
       </div>  
     </nav>
+  </head>
+  <body>
+    <aside class="text-center">
+      <p>Aside</p>
+      </aside>
     
     <div class="container">
-      <div class="content">
-        <div id="teamsTable"></div>
+      <div class="row">
+        <div class="col-12">
+          <div id="teamsTable"></div>
+        </div>
       </div>
+      <div class="row">
+        <div class="col-12">
+          <div id="modal">
+              <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="ModalLabel">Delete team?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      If you wish to delete the team, click confirm.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-danger" id="teamDelete" data-dismiss="modal">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div> 
     </div>
 
 
