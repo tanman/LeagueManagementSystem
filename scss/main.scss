@@ -1,0 +1,53 @@
+// general styles
+.container {
+    // background-color: black;
+    width: 100%;
+    margin-top: 10vh;
+}
+strong {
+    color: black;
+}
+body {
+    padding: 0px;
+    color: black;
+}
+
+// nav
+.navbar-dark {
+    background-color: #212529 !important;
+    padding: 10px;
+}
+
+// table stylez
+td{
+    color: black;
+}
+// .popover-dismiss {
+//     border: none;
+//     background: none;
+// }
+// .table-button {
+//     border: none;
+//     background: none;
+// }
+button {
+    border: none;
+    background: none;
+    color: black;
+}
+.popover-dismiss{
+    // background: black;
+}
+
+
+// footer
+footer {
+    vertical-align: middle;
+    background-color: #212529;
+    color: #ffffff;
+    padding: 10px 10px 0px 10px;
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    line-height: 30px;
+  }
