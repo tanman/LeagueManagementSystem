@@ -11,6 +11,9 @@ body {
     padding: 0px;
     color: black;
     background-color: #181a1b !important;
+    background-image: url("../img/esports2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 // nav
@@ -18,9 +21,13 @@ body {
     // background-color: #212529 !important;
     // background-color: #0e0342 !important;
     padding: 10px;
+    opacity: 90%;
 }
 
 // table styles
+table {
+    opacity: 97%;
+}
 // td{
 //     color: black;
 // }
@@ -50,10 +57,12 @@ footer {
     bottom: 0;
     height: 50px;
     line-height: 30px;
+    opacity: 90%;
   }
 
 // aside
   aside {
+  opacity: 90%;
   background-color: #212528;
   width: 100px;
   padding-right: 15px;
