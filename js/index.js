@@ -19,4 +19,13 @@ $(() => {
     // row tooltips
     $('tr').tooltip()
 
+    // aside mouseover / mouseout
+    // $('#aside').on('mouseover', ()=>{
+    //     $('#aside')[0].animate({'width': '100px'}, 250);
+    // })
+    // $('aside').on('mouseout', ()=>{
+    //     $('aside')[0].animate({'width': '60px'}, 250);
+    // })
+
+
 })
