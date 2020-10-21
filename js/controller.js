@@ -8,13 +8,12 @@ class controller {
     setTableColumnHeadHandlers(){
 
         $(".col-head").on('click', (ev)=>{
-
+            console.log(`ev ${JSON.stringify(ev)}`);
             // if not currently sorted by this col, sort asc
             if(this.viewModel.storage.getSortCol() !== ev.target.id){
 
                 this.viewModel.storage.sort([`${ev.target.id}`],['asc'], true)
             }
-
             // if currently sorted by this col, sort to opposite direction
             else if(this.viewModel.storage.getSortCol() === ev.target.id){
                 
@@ -25,16 +24,54 @@ class controller {
                 else{
 
                     this.viewModel.storage.sort([`${ev.target.id}`],['asc'], true)
-                }
-                
+                } 
             }
-
             // rebuild the table
-            this.viewModel.buildTable();
-            // reinitialize the handlers since the table was rebuilt
-            this.setTableColumnHeadHandlers();
-
+            this.rerenderTable();
         });
+    }
+
+    setTableSearchBarHandler(){
+        $(`#searchBar > form > input`).on('keyup', (ev)=>{
+            let data;
+            ev.target.value ? data = this.viewModel.storage.filter({'name':ev.target.value}) : data = [];
+            this.rerenderTable(data);
+        });
+    }
+
+    setRowDeleteHandlers(){
+
+        // setup delete handler
+        $(".deleter").on('click', (ev)=>{
+
+            // tailor the modal with the relevant data
+            let id = parseInt(ev.currentTarget.id)
+            let team = this.viewModel.storage.getItem(id);
+
+            $(".modal-title").text(`Delete the ${team.name}?`);
+            $(".modal-body").text(`If you wish to delete the ${team.name}, click confirm.`);
+
+            // assign the modal's delete button to delete the desired team
+            // need to clear any pre-existing handlers first
+            $("#teamDelete").off('click');
+            $("#teamDelete").on('click', ()=>{
+                
+                // animate row deletion, then delete the row
+                let animationTime = 2000;
+                $(`#t${id}`).slideUp(animationTime, ()=>{
+                    this.viewModel.storage.remove(id);
+                    this.viewModel.storage.store();
+                    this.rerenderTable();
+                });
+            });
+            
+        });
+    }
+
+    rerenderTable(data = []){
+        this.viewModel.buildTable(data);
+        this.setTableColumnHeadHandlers();
+        this.setRowDeleteHandlers();
     }
 
 }

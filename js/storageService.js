@@ -70,7 +70,7 @@ class storageService {
      let val = filterObj[key];
 
       return _.filter(this.model.data, team=>{
-         return team[key] === val;
+         return team[key].toLowerCase().includes(val.toLowerCase());
       });
    }
 

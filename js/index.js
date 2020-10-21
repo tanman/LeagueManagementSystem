@@ -4,6 +4,8 @@ $(() => {
     let control = new controller();
     control.viewModel.buildTable();
     control.setTableColumnHeadHandlers();
+    control.setTableSearchBarHandler();
+    control.setRowDeleteHandlers();
     
     $('.popover-dismiss').popover({
         trigger: 'focus'
