@@ -39,6 +39,16 @@ body.modal-open-noscroll
     padding: 10px;
     opacity: 90%;
 }
+#logo {
+    left:-520px;
+    position: relative;
+}
+.open {
+    left: 0px !important;
+}
+.slide {
+    transition: left 0.3s ease-out;
+}
 
 // table styles
 table {

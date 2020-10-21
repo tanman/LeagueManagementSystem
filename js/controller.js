@@ -56,12 +56,18 @@ class controller {
             $("#teamDelete").off('click');
             $("#teamDelete").on('click', ()=>{
                 
-                // animate row deletion, then delete the row
-                let animationTime = 2000;
-                $(`#t${id}`).slideUp(animationTime, ()=>{
+                // animate row deletion, 
+                // then delete the row,
+                // and disable the tooltips 
+                // otherwise they'll get stuck
+                let animationTime = 200;
+                $('tr').tooltip('disable');
+                $(`.a${id}`).slideUp(animationTime, ()=>{
                     this.viewModel.storage.remove(id);
                     this.viewModel.storage.store();
                     this.rerenderTable();
+                    // reactivate tooltips
+                    $('tr').tooltip('enable');
                 });
             });
             

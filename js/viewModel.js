@@ -8,13 +8,13 @@ class viewModel{
         this.storage = new storageService(teamData, 'data');
     }
 
-    buildTable(fromData=[]){
-
-        let data;
-        fromData.length>0 ? data = fromData: data = this.storage.list()
+    buildTable(fromData=[], animate=false){
 
         // sort the model by the params in the local storage
         this.storage.sort([this.storage.model.viewModel.sortColumn],[this.storage.model.viewModel.sortDirection],true);
+
+        let data;
+        fromData.length>0 ? data = fromData: data = this.storage.list()
 
         // begin table building
         $("table").remove();
@@ -46,9 +46,12 @@ class viewModel{
             row.append(`<td>${editButton}${deleteButton}${infoPopover}</td>`);
 
             $("#teamsTableBody").append(row);
-
-            // NEED TO DO SOME HACKERY TO ANIMATE A BOOTSTRAP TABLE ROW, MAYBE ANIMATE EACH PIECE OF TABLE DATA 
-            // row.wrapInner(`<div id="a${team.id}"></div>`);
+            // animation hooks
+            $(`#t${team.id} > td`).wrapInner(`<div class="a${team.id}"></div>`);
+            if(animate){
+                $(`.a${team.id}`).hide();
+                $(`.a${team.id}`).slideDown();
+            }
         });
         
         // place sort icon

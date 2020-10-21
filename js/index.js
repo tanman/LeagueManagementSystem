@@ -2,7 +2,7 @@ import controller from './controller.js';
 
 $(() => {
     let control = new controller();
-    control.viewModel.buildTable();
+    control.viewModel.buildTable([], true);
     control.setTableColumnHeadHandlers();
     control.setTableSearchBarHandler();
     control.setRowDeleteHandlers();
@@ -33,6 +33,9 @@ $(() => {
         $('#aside')[0].animate({'width': '100px'}, 150);
         $('#aside').css({'width':'150px'});
     });
+
+    // nav slide animation
+    $('#logo').toggleClass('open');
 
 
 })
