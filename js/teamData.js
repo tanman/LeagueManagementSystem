@@ -58,7 +58,8 @@
          coachEmail: "ken.jenson@uvu.edu",
          coachLicenseLevel: 1,
          league: 1,
-         division: 1
+         division: 2,
+         playerCount: 5
        },
         {
          id: 2,
@@ -69,8 +70,9 @@
          coachPhone: "801-333-4444",
          coachEmail: "peter.rabbit@uvu.edu",
          coachLicenseLevel: 1,
-         league: 1,
-         division: 2
+         league: 2,
+         division: 2,
+         playerCount: 6
        },
        {
          id: 3,
@@ -81,10 +83,15 @@
          coachPhone: "801-333-4444",
          coachEmail: "harry.dirty.dog@uvu.edu",
          coachLicenseLevel: 2,
-         league: 1,
-         division: 2
+         league: 3,
+         division: 2,
+         playerCount: 7
        }
-     ]
+     ],
+     viewModel: {
+       sortColumn: 'name',
+       sortDirection: 'asc'
+     }
      
    }
 

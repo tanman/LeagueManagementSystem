@@ -36,6 +36,7 @@ class storageService {
        return this.model.data;
     }
     sort(cols, sorts, perm=false) {
+
        //returns a copy of the model, sorted using the 'cols' and 'sort' specifications (see index.html for example)
        // storageSvc.sort(['name'],['asc'])
        let sorted = _.sortBy(this.model.data, cols);
@@ -43,9 +44,22 @@ class storageService {
        // if 'perm' param is set to true, you should update the internal model.data with the sorted list
        if(perm){
           this.model.data = sorted;
+          this.model.viewModel = {
+             sortColumn: cols[0],
+             sortDirection: sorts[0]
+          };
        }
+
        // return
        return sorted;
+    }
+
+    getSortCol(){
+       return this.model.viewModel.sortColumn;
+    }
+
+    getSortDirection(){
+       return this.model.viewModel.sortDirection;
     }
 
     filter(filterObj){
