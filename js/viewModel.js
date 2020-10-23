@@ -42,7 +42,12 @@ class viewModel{
             // actions
             let infoPopover= `<button type="button" class="popover-dismiss" data-toggle="popover" data-placement="top" title="${team.name}" data-content="${popOver}"><i class="${infoIcon}"></i></button>`
             let deleteButton= `<button type="button" id="${team.id}" class="table-button deleter" data-toggle="modal" data-target="#Modal"><i class="${deleteIcon}"></i></button>`
-            let editButton= `<button type="button" class="table-button"><i class="${editIcon}"></i></button>`
+            let editButton= `<button type="button" class="table-button" data-toggle="modal" data-target="#formModal"><i class="${editIcon}"></i></button>`
+            //
+            // <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal">
+            //     Launch demo modal
+            // </button>
+            //
             row.append(`<td>${editButton}${deleteButton}${infoPopover}</td>`);
 
             $("#teamsTableBody").append(row);

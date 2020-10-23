@@ -48,8 +48,8 @@ class controller {
             let id = parseInt(ev.currentTarget.id)
             let team = this.viewModel.storage.getItem(id);
 
-            $(".modal-title").text(`Delete the ${team.name}?`);
-            $(".modal-body").text(`If you wish to delete the ${team.name}, click confirm.`);
+            $("#deleteModalTitle").text(`Delete the ${team.name}?`);
+            $("#deleteModalBody").text(`If you wish to delete the ${team.name}, click confirm.`);
 
             // assign the modal's delete button to delete the desired team
             // need to clear any pre-existing handlers first
