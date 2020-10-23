@@ -112,18 +112,18 @@
                               <h3 class="mb-3">Team Info</h3>
                               <div class="row">
                                 <div class="col-md-12 mb-3">
-                                  <label for="teamName">Team Name</label>
-                                  <input type="text" class="form-control" id="team" placeholder="" value="" required>
+                                  <label for="teamNameInput">Team Name</label>
+                                  <input type="text" class="form-control" id="teamNameInput" placeholder="" value=""
+                                    required>
                                   <div class="invalid-feedback">
                                     Team name is required.
                                   </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
 
-                                  <label for="league">League</label>
-                                  <select class="custom-select d-block w-100" id="league" required>
-                                    <option value="">Select a League</option>
-                                    <option>1</option>
+                                  <label for="leagueInput">League</label>
+                                  <select class="custom-select d-block w-100" id="leagueInput" required>
+                                    <option selected value="">Select a League</option>
                                   </select>
                                   <div class="invalid-feedback">
                                     Please provide a valid league.
@@ -132,10 +132,9 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
 
-                                  <label for="division">Division</label>
-                                  <select class="custom-select d-block w-100" id="division" required>
-                                    <option value="">Select a Grade</option>
-                                    <option>1</option>
+                                  <label for="divisionInput">Division</label>
+                                  <select class="custom-select d-block w-100" id="divisionInput" required>
+                                    <option selected value="">Select a Grade</option>
                                   </select>
                                   <div class="invalid-feedback">
                                     Please provide a valid division.
@@ -147,24 +146,24 @@
                               <h3 class="mb-3">Coach Info</h3>
                               <div class="row">
                                 <div class="col-md-6 mb-3">
-                                  <label for="firstName">First name</label>
-                                  <input type="text" class="form-control" id="firstName" placeholder="" value=""
+                                  <label for="firstNameInput">First name</label>
+                                  <input type="text" class="form-control" id="firstNameInput" placeholder="" value=""
                                     required>
                                   <div class="invalid-feedback">
                                     Valid first name is required.
                                   </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                  <label for="lastName">Last name</label>
-                                  <input type="text" class="form-control" id="lastName" placeholder="" value=""
+                                  <label for="lastNameInput">Last name</label>
+                                  <input type="text" class="form-control" id="lastNameInput" placeholder="" value=""
                                     required>
                                   <div class="invalid-feedback">
                                     Valid last name is required.
                                   </div>
                                 </div>
                                 <div class="col-md-12 mb-3">
-                                  <label for="address">Address</label>
-                                  <input type="text" class="form-control" id="address" placeholder="1234 Main St"
+                                  <label for="addressInput">Address</label>
+                                  <input type="text" class="form-control" id="addressInput" placeholder="1234 Main St"
                                     required>
                                   <div class="invalid-feedback">
                                     Please enter your shipping address.
@@ -174,25 +173,75 @@
 
                               <div class="row">
                                 <div class="col-md-5 mb-3">
-                                  <label for="city">City</label>
-                                  <input type="text" class="form-control" id="city" required>
+                                  <label for="cityInput">City</label>
+                                  <input type="text" class="form-control" id="cityInput" required>
                                   <div class="invalid-feedback">
                                     Please enter your shipping address.
                                   </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                  <label for="state">State</label>
-                                  <select class="custom-select d-block w-100" id="state" required>
+                                  <label for="stateInput">State</label>
+                                  <select class="custom-select d-block w-100" id="stateInput" required>
                                     <option value="">Choose...</option>
-                                    <option>California</option>
+                                    <option id="AL" value="AL">AL</option>
+                                    <option id="AK" value="AK">AK</option>
+                                    <option id="AR" value="AR">AR</option>	
+                                    <option id="AZ" value="AZ">AZ</option>
+                                    <option id="CA" value="CA">CA</option>
+                                    <option id="CO" value="CO">CO</option>
+                                    <option id="CT" value="CT">CT</option>
+                                    <option id="DC" value="DC">DC</option>
+                                    <option id="DE" value="DE">DE</option>
+                                    <option id="FL" value="FL">FL</option>
+                                    <option id="GA" value="GA">GA</option>
+                                    <option id="HI" value="HI">HI</option>
+                                    <option id="IA" value="IA">IA</option>	
+                                    <option id="ID" value="ID">ID</option>
+                                    <option id="IL" value="IL">IL</option>
+                                    <option id="IN" value="IN">IN</option>
+                                    <option id="KS" value="KS">KS</option>
+                                    <option id="KY" value="KY">KY</option>
+                                    <option id="LA" value="LA">LA</option>
+                                    <option id="MA" value="MA">MA</option>
+                                    <option id="MD" value="MD">MD</option>
+                                    <option id="ME" value="ME">ME</option>
+                                    <option id="MI" value="MI">MI</option>
+                                    <option id="MN" value="MN">MN</option>
+                                    <option id="MO" value="MO">MO</option>	
+                                    <option id="MS" value="MS">MS</option>
+                                    <option id="MT" value="MT">MT</option>
+                                    <option id="NC" value="NC">NC</option>	
+                                    <option id="NE" value="NE">NE</option>
+                                    <option id="NH" value="NH">NH</option>
+                                    <option id="NJ" value="NJ">NJ</option>
+                                    <option id="NM" value="NM">NM</option>			
+                                    <option id="NV" value="NV">NV</option>
+                                    <option id="NY" value="NY">NY</option>
+                                    <option id="ND" value="ND">ND</option>
+                                    <option id="OH" value="OH">OH</option>
+                                    <option id="OK" value="OK">OK</option>
+                                    <option id="OR" value="OR">OR</option>
+                                    <option id="PA" value="PA">PA</option>
+                                    <option id="RI" value="RI">RI</option>
+                                    <option id="SC" value="SC">SC</option>
+                                    <option id="SD" value="SD">SD</option>
+                                    <option id="TN" value="TN">TN</option>
+                                    <option id="TX" value="TX">TX</option>
+                                    <option id="UT" value="UT">UT</option>
+                                    <option id="VT" value="VT">VT</option>
+                                    <option id="VA" value="VA">VA</option>
+                                    <option id="WA" value="WA">WA</option>
+                                    <option id="WI" value="WI">WI</option>	
+                                    <option id="WV" value="WV">WV</option>
+                                    <option id="WY" value="WY">WY</option>
                                   </select>
                                   <div class="invalid-feedback">
                                     Please provide a valid state.
                                   </div>
                                 </div>
                                 <div class="col-md-3 mb-3">
-                                  <label for="zip">Zip</label>
-                                  <input type="text" class="form-control" id="zip" placeholder="" required>
+                                  <label for="zipInput">Zip</label>
+                                  <input type="text" class="form-control" id="zipInput" placeholder="" required>
                                   <div class="invalid-feedback">
                                     Zip code required.
                                   </div>
@@ -200,39 +249,37 @@
                               </div>
 
                               <div class="mb-3">
-                                <label for="email">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                                <label for="emailInput">Email</label>
+                                <input type="email" class="form-control" id="emailInput" placeholder="you@example.com">
                                 <div class="invalid-feedback">
                                   Please enter a valid email address for shipping updates.
                                 </div>
                               </div>
 
-                              <div class="mb-3">
-                                <label for="phone">Phone</label>
-                                <input type="text" class="form-control" id="phone" required>
-                                <div class="invalid-feedback">
-                                  Please enter your phone number.
+                              <div class="row">
+                                <div class="mb-3 col-md-6">
+                                  <label for="phoneInput">Phone</label>
+                                  <input type="text" class="form-control" id="phoneInput" required>
+                                  <div class="invalid-feedback">
+                                    Please enter your phone number.
+                                  </div>
+                                </div>
+
+                                <div class="mb-3 col-md-6">
+                                  <label for="licenseLevelInput">License Level</label>
+                                  <select class="custom-select" id="licenseLevelInput">
+                                    <option selected value="">Select a license level</option>
+                                  </select>
                                 </div>
                               </div>
 
                               <div class="mb-3">
-                                <label for="licenseLevel">License Level</label>
-                                <select class="custom-select" id="licenseLevel">
-                                  <!-- <option selected>License Level</option> -->
-                                  <option value="1">One</option>
-                                  <option value="2">Two</option>
-                                  <option value="3">Three</option>
-                                </select>
-                              </div>
-
-
-                              <div class="mb-3">
-                                <label for="username">Username</label>
+                                <label for="usernameInput">Username</label>
                                 <div class="input-group">
                                   <div class="input-group-prepend">
                                     <span class="input-group-text">@</span>
                                   </div>
-                                  <input type="text" class="form-control" id="username" placeholder="Username" required>
+                                  <input type="text" class="form-control" id="usernameInput" placeholder="Username" required>
                                   <div class="invalid-feedback" style="width: 100%;">
                                     Your username is required.
                                   </div>
@@ -240,15 +287,15 @@
                               </div>
 
                               <div class="mb-3">
-                                <label for="password">Password</label>
-                                <input type="text" class="form-control" id="password" required>
+                                <label for="passwordInput">Password</label>
+                                <input type="text" class="form-control" id="passwordInput" required>
                                 <div class="invalid-feedback">
                                   Please enter your password
                                 </div>
                               </div>
                               <div class="mb-3">
-                                <label for="passwordConfirm">Confirm Password</label>
-                                <input type="text" class="form-control" id="passwordConfirm" required>
+                                <label for="passwordConfirmInput">Confirm Password</label>
+                                <input type="text" class="form-control" id="passwordConfirmInput" required>
                                 <div class="invalid-feedback">
                                   Please confirm your password
                                 </div>
@@ -273,7 +320,7 @@
   </div>
 
 
-  
+
 
   <footer class="container-fluid w-100 py-3">
     <div class="text-center">

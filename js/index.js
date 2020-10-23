@@ -6,6 +6,7 @@ $(() => {
     control.setTableColumnHeadHandlers();
     control.setTableSearchBarHandler();
     control.setRowDeleteHandlers();
+    control.setRowEditHandlers();
     
     $('.popover-dismiss').popover({
         trigger: 'focus'

@@ -74,10 +74,55 @@ class controller {
         });
     }
 
+    setRowEditHandlers(){
+        $(".editer").on("click", (ev)=>{
+
+            // remove any previously added options
+            $(".addedOption").remove();
+
+            // populate dropdowns from lookup data
+            let lookups = ["league", "division", "licenseLevel"]
+            lookups.forEach((section)=>{
+
+                // need to use plural here, so we add an s
+                let data = this.viewModel.storage.getLookup(`${section}s`);
+                // loop through lookup data, adding options to the respective dropdown
+                // can add ${section.charAt(0).toUpperCase()+section.slice(1)} if we want to prefix the leagues/divisions/license levels
+                data.forEach((item)=>{
+                    $(`#${section}Input`).append(`
+                    <option class="addedOption" id="option${section}${item["label"]}" value="${item["label"]}">
+                        ${item["label"]}
+                    </option>`);
+                });
+            });
+
+
+            // load team data into the form
+            let expectedId = ev.currentTarget.id.substr(1); // chop off the prefix char, 'e' in this context
+            let teamData = this.viewModel.storage.getItem(parseInt(expectedId));
+            console.log(JSON.stringify(teamData));
+            $("#teamNameInput").val(teamData.name);
+            $(`#optionleague${teamData.league}`).prop('selected', true);
+            $(`#optiondivision${teamData.division}`).prop('selected', true);
+            $("#firstNameInput").val(teamData.coachFirst);
+            $("#lastNameInput").val(teamData.coachLast);
+            $("#addressInput").val(teamData.coachAddress);
+            $("#cityInput").val(teamData.coachCity);
+            $(`#${teamData.coachState}`).prop('selected', true);
+            $("#zipInput").val(teamData.coachZip);
+            $("#emailInput").val(teamData.coachEmail);
+            $("#phoneInput").val(teamData.coachPhone);
+            $(`#optionlicenseLevel${teamData.coachLicenseLevel}`).prop('selected', true);
+            $("#usernameInput").val(teamData.coachUserName);
+
+        });
+    }
+
     rerenderTable(data = []){
         this.viewModel.buildTable(data);
         this.setTableColumnHeadHandlers();
         this.setRowDeleteHandlers();
+        this.setRowEditHandlers();
     }
 
 }
