@@ -7,6 +7,8 @@ $(() => {
     control.setTableSearchBarHandler();
     control.setRowDeleteHandlers();
     control.setRowEditHandlers();
+    control.initializeModal();
+    control.setAddTeamHandler();
     
     $('.popover-dismiss').popover({
         trigger: 'focus'

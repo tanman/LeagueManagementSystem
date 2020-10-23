@@ -1,6 +1,7 @@
 import storageService from './storageService.js'
 import teamData from './teamData.js';
 import teamsTable from './teamsTable.js';
+import modalForm from './modalForm.js';
 
 class viewModel{
 
@@ -43,11 +44,7 @@ class viewModel{
             let infoPopover= `<button type="button" class="popover-dismiss" data-toggle="popover" data-placement="top" title="${team.name}" data-content="${popOver}"><i class="${infoIcon}"></i></button>`
             let deleteButton= `<button type="button" id="${team.id}" class="table-button deleter" data-toggle="modal" data-target="#Modal"><i class="${deleteIcon}"></i></button>`
             let editButton= `<button type="button" id="e${team.id}" class="table-button editer" data-toggle="modal" data-target="#formModal"><i class="${editIcon}"></i></button>`
-            //
-            // <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formModal">
-            //     Launch demo modal
-            // </button>
-            //
+
             row.append(`<td>${editButton}${deleteButton}${infoPopover}</td>`);
 
             $("#teamsTableBody").append(row);
@@ -61,6 +58,15 @@ class viewModel{
         
         // place sort icon
         this.putSortIcon(this.storage.getSortCol(), this.storage.getSortDirection())
+    }
+
+    writeForm(){
+        // clear and write the modal form
+        let form = new modalForm();
+        $("#formModal").remove();
+        $("#formLanding").append(form.skele());
+        // add novalidate
+        $("#directForm").attr('novalidate', 'novalidate');
     }
 
     putSortIcon(col, direction){

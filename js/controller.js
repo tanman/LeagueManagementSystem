@@ -1,4 +1,5 @@
 import viewModel from './viewModel.js';
+import validation from './validation.js';
 
 class controller {
     constructor(){
@@ -77,8 +78,8 @@ class controller {
     setRowEditHandlers(){
         $(".editer").on("click", (ev)=>{
 
-            // remove any previously added options
-            $(".addedOption").remove();
+            // rewrite form
+            this.initializeModal();
 
             // populate dropdowns from lookup data
             let lookups = ["league", "division", "licenseLevel"]
@@ -95,7 +96,6 @@ class controller {
                     </option>`);
                 });
             });
-
 
             // load team data into the form
             let expectedId = ev.currentTarget.id.substr(1); // chop off the prefix char, 'e' in this context
@@ -123,6 +123,27 @@ class controller {
         this.setTableColumnHeadHandlers();
         this.setRowDeleteHandlers();
         this.setRowEditHandlers();
+    }
+
+    addFormSubmitHandler(){
+        $("#formModalSubmit").off();
+        $("#formModalSubmit").on('click', ()=>{
+            let val = new validation();
+            val.validateForm();
+        });
+    }
+    initializeModal(){
+        this.viewModel.writeForm();
+        this.addFormSubmitHandler();
+    }
+
+    setAddTeamHandler(){
+        $("#addTeam").off();
+        $("#addTeam").on('click', ()=>{
+            this.initializeModal();
+            $("#modalTitle").text("Create Team");
+
+        });
     }
 
 }
