@@ -23,7 +23,6 @@ class controller {
                     this.viewModel.storage.sort([`${ev.target.id}`],['desc'], true)
                 }
                 else{
-
                     this.viewModel.storage.sort([`${ev.target.id}`],['asc'], true)
                 } 
             }
@@ -38,7 +37,7 @@ class controller {
             let query = ev.target.value;
 
             if(query){
-                data = this.viewModel.storage.filter({'name':query})
+                data = this.viewModel.storage.filter(query)
                 data.length === 0 ? this.viewModel.tableDisplayNone() : this.rerenderTable(data);
             }
             else{
