@@ -196,13 +196,13 @@ class modalForm {
 
                             <div class="mb-3">
                             <label for="passwordInput">Password</label>
-                            <input type="password" class="form-control doubleCheck" id="passwordInput" required name="password" value="Password_">
+                            <input type="password" class="form-control doubleCheck" id="passwordInput" required name="password">
                             <div class="invalid-feedback">
                             </div>
                             </div>
                             <div class="mb-3">
                             <label for="passwordConfirmInput">Confirm Password</label>
-                            <input type="password" class="form-control" id="passwordConfirmInput" required value="Password_">
+                            <input type="password" class="form-control" id="passwordConfirmInput" required>
                             <div class="invalid-feedback">
                             </div>
                             </div>
