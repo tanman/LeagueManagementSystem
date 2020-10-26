@@ -25,30 +25,27 @@ class modalForm {
                             <div class="col-md-12 mb-3">
                                 <label for="teamNameInput">Team Name</label>
                                 <input type="text" class="form-control" id="teamNameInput" placeholder="" value=""
-                                required>
+                                required name="name">
                                 <div class="invalid-feedback">
-                                Team name is required.
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
 
                                 <label for="leagueInput">League</label>
-                                <select class="custom-select d-block w-100" id="leagueInput" required>
+                                <select class="custom-select d-block w-100" id="leagueInput" required name="league">
                                 <option selected value="">Select a League</option>
                                 </select>
                                 <div class="invalid-feedback">
-                                Please provide a valid league.
                                 </div>
 
                             </div>
                             <div class="col-md-6 mb-3">
 
                                 <label for="divisionInput">Division</label>
-                                <select class="custom-select d-block w-100" id="divisionInput" required>
+                                <select class="custom-select d-block w-100" id="divisionInput" required name="division">
                                 <option selected value="">Select a Grade</option>
                                 </select>
                                 <div class="invalid-feedback">
-                                Please provide a valid division.
                                 </div>
 
                             </div>
@@ -56,43 +53,46 @@ class modalForm {
                             <hr class="mb-4">
                             <h3 class="mb-3">Coach Info</h3>
                             <div class="row">
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-5 mb-3">
                                 <label for="firstNameInput">First name</label>
                                 <input type="text" class="form-control" id="firstNameInput" placeholder="" value=""
-                                required>
+                                required name="coachFirst">
                                 <div class="invalid-feedback">
-                                Valid first name is required.
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-5 mb-3">
                                 <label for="lastNameInput">Last name</label>
                                 <input type="text" class="form-control" id="lastNameInput" placeholder="" value=""
-                                required>
+                                required name="coachLast">
                                 <div class="invalid-feedback">
-                                Valid last name is required.
+                                </div>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="coachIdInput">ID</label>
+                                <input type="text" class="form-control" id="coachIdInput" placeholder="" value=""
+                                name="coachId" readonly>
+                                <div class="invalid-feedback">
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label for="addressInput">Address</label>
                                 <input type="text" class="form-control" id="addressInput" placeholder="1234 Main St"
-                                required>
+                                required name="coachAddress">
                                 <div class="invalid-feedback">
-                                Please enter your address.
                                 </div>
                             </div>
                             </div>
 
                             <div class="row">
-                            <div class="col-md-5 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label for="cityInput">City</label>
-                                <input type="text" class="form-control" id="cityInput" required>
+                                <input type="text" class="form-control" id="cityInput" required name="coachCity">
                                 <div class="invalid-feedback">
-                                Please enter your city.
                                 </div>
                             </div>
                             <div class="col-md-4 mb-3">
                                 <label for="stateInput">State</label>
-                                <select class="custom-select d-block w-100" id="stateInput" required>
+                                <select class="custom-select d-block w-100" id="stateInput" required name="coachState">
                                 <option value="">Choose...</option>
                                 <option id="AL" value="AL">AL</option>
                                 <option id="AK" value="AK">AK</option>
@@ -147,40 +147,38 @@ class modalForm {
                                 <option id="WY" value="WY">WY</option>
                                 </select>
                                 <div class="invalid-feedback">
-                                Please provide a valid state.
                                 </div>
                             </div>
-                            <div class="col-md-3 mb-3">
+                            <div class="col-md-4 mb-3">
                                 <label for="zipInput">Zip</label>
-                                <input type="text" class="form-control" id="zipInput" placeholder="" required>
+                                <input type="text" class="form-control doubleCheck" id="zipInput" placeholder="" required name="coachZip">
                                 <div class="invalid-feedback">
-                                Zip code required.
                                 </div>
                             </div>
                             </div>
 
                             <div class="mb-3">
                             <label for="emailInput">Email</label>
-                            <input type="email" class="form-control" id="emailInput" placeholder="you@example.com">
+                            <input type="email" class="form-control doubleCheck" id="emailInput" placeholder="you@example.com" required name="coachEmail">
                             <div class="invalid-feedback">
-                                Please enter a valid email address for shipping updates.
                             </div>
                             </div>
 
                             <div class="row">
                             <div class="mb-3 col-md-6">
                                 <label for="phoneInput">Phone</label>
-                                <input type="text" class="form-control" id="phoneInput" required>
+                                <input type="text" class="form-control doubleCheck" id="phoneInput" required name="coachPhone">
                                 <div class="invalid-feedback">
-                                Please enter your phone number.
                                 </div>
                             </div>
 
                             <div class="mb-3 col-md-6">
                                 <label for="licenseLevelInput">License Level</label>
-                                <select class="custom-select" id="licenseLevelInput">
+                                <select class="custom-select" id="licenseLevelInput" required name="coachLicenseLevel">
                                 <option selected value="">Select a license level</option>
                                 </select>
+                                <div class="invalid-feedback">
+                                </div>
                             </div>
                             </div>
 
@@ -190,30 +188,30 @@ class modalForm {
                                 <div class="input-group-prepend">
                                 <span class="input-group-text">@</span>
                                 </div>
-                                <input type="text" class="form-control" id="usernameInput" placeholder="Username" required>
-                                <div class="invalid-feedback" style="width: 100%;">
-                                Your username is required.
+                                <input type="text" class="form-control doubleCheck" id="usernameInput" placeholder="Username" required name="coachUserName">
+                                <div class="invalid-feedback">
                                 </div>
                             </div>
                             </div>
 
                             <div class="mb-3">
                             <label for="passwordInput">Password</label>
-                            <input type="text" class="form-control" id="passwordInput" required>
+                            <input type="password" class="form-control doubleCheck" id="passwordInput" required name="password" value="Password_">
                             <div class="invalid-feedback">
-                                Please enter your password
                             </div>
                             </div>
                             <div class="mb-3">
                             <label for="passwordConfirmInput">Confirm Password</label>
-                            <input type="text" class="form-control" id="passwordConfirmInput" required>
+                            <input type="password" class="form-control" id="passwordConfirmInput" required value="Password_">
                             <div class="invalid-feedback">
-                                Please confirm your password
                             </div>
                             </div>
 
+                            <input type="text" class="form-control d-none" id="teamId" value="" name="id">
+
+
                             <hr class="mb-4">
-                            <button class="btn btn-primary btn-lg btn-block" id="formModalSubmit" type="button">Submit</button>
+                            <button class="btn btn-primary btn-lg btn-block" id="formModalSubmit" type="submit">Submit</button>
                         </form>
                         </div>
                     </div>

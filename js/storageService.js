@@ -77,21 +77,27 @@ class storageService {
     getItem(getId) {
       //returns the item in the array with id=getId, null if it is not found
       return this.model.data[_.findIndex(this.model.data, (team)=>{
+         // console.log(`comparing ${team.id} to ${getId}`);
          return team.id === getId;
       })];
 
     }
     create(obj) {
        //append new object to data store
-       this.model.data = _.concat(this.model.data, obj);
+      //  this.model.data = _.concat(this.model.data, obj);
+      this.model.data[obj.id] = obj;
        // persist in local storage by calling store()
        this.store();
     }
     update(obj) {
       //find index of object in array
-      let idx = _.findIndex(this.model.data, (team)=>{
-         return team.id === obj.id;
-      });
+      let idx;
+      for(let x=0; x< this.model.data.length; x++){
+         if(this.model.data[x].id === obj.id){
+            idx = x;
+            break;
+         }
+      }
       //update object with new contents
       this.model.data[idx] = obj;
       // persist in local storage by calling store()
@@ -108,6 +114,11 @@ class storageService {
     getLookup(name) {
         //returns the requested lookup data 
         return this.model.lookups[name];
+    }
+    getNextId(){
+       return Math.max.apply(Math, this.model.data.map(item=>{
+         return item.id;
+       }))+1;
     }
 }
 

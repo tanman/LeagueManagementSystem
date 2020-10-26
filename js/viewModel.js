@@ -38,8 +38,8 @@ class viewModel{
             row.append(`<td>${team.coachFirst} ${team.coachLast}</td>`);
             // team admin
             row.append(`<td>${team.coachEmail}<br>${team.coachPhone}</td>`);
-            // player count
-            row.append(`<td>${team.playerCount}</td>`);
+            // division
+            row.append(`<td>${team.division}</td>`);
             // actions
             let infoPopover= `<button type="button" class="popover-dismiss" data-toggle="popover" data-placement="top" title="${team.name}" data-content="${popOver}"><i class="${infoIcon}"></i></button>`
             let deleteButton= `<button type="button" id="${team.id}" class="table-button deleter" data-toggle="modal" data-target="#Modal"><i class="${deleteIcon}"></i></button>`
@@ -60,13 +60,39 @@ class viewModel{
         this.putSortIcon(this.storage.getSortCol(), this.storage.getSortDirection())
     }
 
+    tableDisplayNone(){
+        let table = new teamsTable();
+        $("table").remove();
+        $("#teamsTable").append(table.skele());
+    }
+
     writeForm(){
         // clear and write the modal form
         let form = new modalForm();
         $("#formModal").remove();
         $("#formLanding").append(form.skele());
+        // add input masking
+        $("#phoneInput").usPhoneFormat({
+            format: '(xxx) xxx-xxxx'
+        });
         // add novalidate
         $("#directForm").attr('novalidate', 'novalidate');
+
+        // populate dropdowns from lookup data
+        let lookups = ["league", "division", "licenseLevel"]
+        lookups.forEach((section)=>{
+
+            // need to use plural here, so we add an s
+            let data = this.storage.getLookup(`${section}s`);
+            // loop through lookup data, adding options to the respective dropdown
+            // can add ${section.charAt(0).toUpperCase()+section.slice(1)} if we want to prefix the leagues/divisions/license levels
+            data.forEach((item)=>{
+                $(`#${section}Input`).append(`
+                <option class="addedOption" id="option${section}${item["label"]}" value="${item["label"]}">
+                    ${item["label"]}
+                </option>`);
+            });
+        });
     }
 
     putSortIcon(col, direction){
@@ -96,8 +122,8 @@ class viewModel{
                 $("#coachEmail").append(icon);
                 break;
 
-            case 'playerCount':
-                $("#playerCount").append(icon);
+            case 'division':
+                $("#division").append(icon);
                 break;
             
             default:

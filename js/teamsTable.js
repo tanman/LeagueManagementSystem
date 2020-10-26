@@ -18,7 +18,7 @@ class teamsTable {
                 <button type="button" id="coachEmail" class="col-head">Contact</button>
               </th>
               <th scope="col">
-                <button type="button" id="playerCount" class="col-head">Player Count</button>
+                <button type="button" id="division" class="col-head">Division</button>
               </th>
               <th scope="col">
                 Actions
