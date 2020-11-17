@@ -2,15 +2,15 @@
      lookups:  {
        leagues: [
           {
-           label: "1",
+           label: "LCS",
            id: "1"
           },
          {
-           label: "2",
+           label: "LEC",
            id: "2"
           },
           {
-           label: "3",
+           label: "LCK",
            id: "3"
           }
           ],
@@ -62,7 +62,7 @@
          coachState: "TX",
          coachZip: "77491",
          coachUserName: "mrKennyj",
-         league: "1",
+         league: "LCS",
          division: "2",
          playerCount: "5"
        },
@@ -80,8 +80,8 @@
          coachState: "TX",
          coachZip: "77856",
          coachUserName: "loPetier",
-         league: "2",
-         division: "2",
+         league: "LEC",
+         division: "3",
          playerCount: "6"
        },
        {
@@ -98,8 +98,8 @@
          coachState: "TX",
          coachZip: "77429",
          coachUserName: "sktKkoma",
-         league: "3",
-         division: "2",
+         league: "LCK",
+         division: "1",
          playerCount: "7"
        }
      ],

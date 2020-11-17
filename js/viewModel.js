@@ -3,19 +3,20 @@ import teamData from './teamData.js';
 import teamsTable from './teamsTable.js';
 import modalForm from './modalForm.js';
 
-class viewModel{
+class viewModel {
 
-    constructor(){
+    constructor() {
         this.storage = new storageService(teamData, 'data');
+        //this.storage.debugResetToPresetData();
     }
 
-    buildTable(fromData=[], animate=false){
+    buildTable(fromData = [], animate = false) {
 
         // sort the model by the params in the local storage
-        this.storage.sort([this.storage.model.viewModel.sortColumn],[this.storage.model.viewModel.sortDirection],true);
+        this.storage.sort([this.storage.model.viewModel.sortColumn], [this.storage.model.viewModel.sortDirection], true);
 
         let data;
-        fromData.length>0 ? data = fromData: data = this.storage.list()
+        fromData.length > 0 ? data = fromData : data = this.storage.list()
 
         // begin table building
         $("table").remove();
@@ -25,48 +26,50 @@ class viewModel{
         let infoIcon = "fas fa-info-circle";
         $("#teamsTable").append(table.skele());
         data.forEach(team => {
-            // tooltip content
-            let toolTip = `${team.name}<br>League: ${team.league}<br>Coach: ${team.coachFirst} ${team.coachLast}<br>${team.coachEmail} ${team.coachPhone}`
-            let popOver = `League: ${team.league} Coach: ${team.coachFirst} ${team.coachLast}`
-            let row = $(`<tr id="t${team.id}" data-toggle="tooltip" data-html="true" data-placement="bottom" title="${toolTip}"></tr>`);
-         
-            // name
-            row.append(`<td scope="row"><strong>${team.name}</strong></td>`);
-            // league
-            row.append(`<td>${team.league}</td>`);
-            // coach
-            row.append(`<td>${team.coachFirst} ${team.coachLast}</td>`);
-            // team admin
-            row.append(`<td>${team.coachEmail}<br>${team.coachPhone}</td>`);
-            // division
-            row.append(`<td>${team.division}</td>`);
-            // actions
-            let infoPopover= `<button type="button" class="popover-dismiss" data-toggle="popover" data-placement="top" title="${team.name}" data-content="${popOver}"><i class="${infoIcon}"></i></button>`
-            let deleteButton= `<button type="button" id="${team.id}" class="table-button deleter" data-toggle="modal" data-target="#Modal"><i class="${deleteIcon}"></i></button>`
-            let editButton= `<button type="button" id="e${team.id}" class="table-button editer" data-toggle="modal" data-target="#formModal"><i class="${editIcon}"></i></button>`
+            if (team) {
+                // tooltip content
+                let toolTip = `${team.name}<br>League: ${team.league}<br>Coach: ${team.coachFirst} ${team.coachLast}<br>${team.coachEmail} ${team.coachPhone}`
+                let popOver = `League: ${team.league} Coach: ${team.coachFirst} ${team.coachLast}`
+                let row = $(`<tr id="t${team.id}" data-toggle="tooltip" data-html="true" data-placement="bottom" title="${toolTip}"></tr>`);
 
-            row.append(`<td>${editButton}${deleteButton}${infoPopover}</td>`);
+                // name
+                row.append(`<td scope="row"><strong>${team.name}</strong></td>`);
+                // league
+                row.append(`<td>${team.league}</td>`);
+                // coach
+                row.append(`<td>${team.coachFirst} ${team.coachLast}</td>`);
+                // team admin
+                row.append(`<td>${team.coachEmail}<br>${team.coachPhone}</td>`);
+                // division
+                row.append(`<td>${team.division}</td>`);
+                // actions
+                let infoPopover = `<button type="button" class="popover-dismiss" data-toggle="popover" data-placement="top" title="${team.name}" data-content="${popOver}"><i class="${infoIcon}"></i></button>`
+                let deleteButton = `<button type="button" id="${team.id}" class="table-button deleter" data-toggle="modal" data-target="#Modal"><i class="${deleteIcon}"></i></button>`
+                let editButton = `<button type="button" id="e${team.id}" class="table-button editer" data-toggle="modal" data-target="#formModal"><i class="${editIcon}"></i></button>`
 
-            $("#teamsTableBody").append(row);
-            // animation hooks
-            $(`#t${team.id} > td`).wrapInner(`<div class="a${team.id}"></div>`);
-            if(animate){
-                $(`.a${team.id}`).hide();
-                $(`.a${team.id}`).slideDown();
+                row.append(`<td>${editButton}${deleteButton}${infoPopover}</td>`);
+
+                $("#teamsTableBody").append(row);
+                // animation hooks
+                $(`#t${team.id} > td`).wrapInner(`<div class="a${team.id}"></div>`);
+                if (animate) {
+                    $(`.a${team.id}`).hide();
+                    $(`.a${team.id}`).slideDown();
+                }
             }
         });
-        
+
         // place sort icon
         this.putSortIcon(this.storage.getSortCol(), this.storage.getSortDirection())
     }
 
-    tableDisplayNone(){
+    tableDisplayNone() {
         let table = new teamsTable();
         $("table").remove();
         $("#teamsTable").append(table.skele());
     }
 
-    writeForm(){
+    writeForm() {
         // clear and write the modal form
         let form = new modalForm();
         $("#formModal").remove();
@@ -80,13 +83,13 @@ class viewModel{
 
         // populate dropdowns from lookup data
         let lookups = ["league", "division", "licenseLevel"]
-        lookups.forEach((section)=>{
+        lookups.forEach((section) => {
 
             // need to use plural here, so we add an s
             let data = this.storage.getLookup(`${section}s`);
             // loop through lookup data, adding options to the respective dropdown
             // can add ${section.charAt(0).toUpperCase()+section.slice(1)} if we want to prefix the leagues/divisions/license levels
-            data.forEach((item)=>{
+            data.forEach((item) => {
                 $(`#${section}Input`).append(`
                 <option class="addedOption" id="option${section}${item["label"]}" value="${item["label"]}">
                     ${item["label"]}
@@ -95,7 +98,7 @@ class viewModel{
         });
     }
 
-    putSortIcon(col, direction){
+    putSortIcon(col, direction) {
         let ascIcon = `<i id="sortIcon" class="fas fa-long-arrow-alt-up"></i>`;
         let descIcon = `<i id="sortIcon" class="fas fa-long-arrow-alt-down"></i>`;
 
@@ -105,7 +108,7 @@ class viewModel{
         let icon;
         direction === 'asc' ? icon = ascIcon : icon = descIcon;
         // dynamically place new sort icon onto correct column header
-        switch (col){
+        switch (col) {
             case 'name':
                 $("#name").append(icon);
                 break;
@@ -117,7 +120,7 @@ class viewModel{
             case 'coachFirst':
                 $("#coachFirst").append(icon);
                 break;
-            
+
             case 'coachEmail':
                 $("#coachEmail").append(icon);
                 break;
@@ -125,13 +128,13 @@ class viewModel{
             case 'division':
                 $("#division").append(icon);
                 break;
-            
+
             default:
                 break;
         }
     }
 
-    sortTableByCol(col, direction){
+    sortTableByCol(col, direction) {
 
     }
 

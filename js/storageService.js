@@ -1,10 +1,23 @@
+import teamData from './teamData.js';
+
 class storageService {
    "use strict";
 
    constructor(data, key) {
-      this.origModel = data;        //original data, should never change
-      this.model = _.cloneDeep(data);    //lodash, deep copy of data
+
       this.key = key;  //localstorage key for data,  use localStorage[this.key]
+
+      if (window.localStorage.getItem(key)) {
+         // pull from existing
+         this.origModel = JSON.parse(window.localStorage.getItem(key))
+         this.model = _.cloneDeep(this.origModel);    //lodash, deep copy of data
+      }
+      else {
+         // populate from preset data
+         this.origModel = data;        //original data, should never change
+         this.model = _.cloneDeep(data);    //lodash, deep copy of data
+      }
+
    }
    size() {
       //should return the number of items in model.data
@@ -22,7 +35,7 @@ class storageService {
    }
    store() {
       //should store your model in localStorage
-      window.localStorage.setItem(this.key, this.model);
+      window.localStorage.setItem(this.key, JSON.stringify(this.model));
    }
    retrieve() {
       //should retrieve your model from localStorage.
@@ -71,12 +84,12 @@ class storageService {
          const { name, league, coachFirst, coachLast, coachEmail, coachPhone, division } = team;
 
          return name.toLowerCase().includes(query) ||
-                league.toLowerCase().includes(query) ||
-                coachFirst.toLowerCase().includes(query) ||
-                coachLast.toLowerCase().includes(query) ||
-                coachEmail.toLowerCase().includes(query) ||
-                coachPhone.toLowerCase().includes(query) ||
-                division.toLowerCase().includes(query);
+            league.toLowerCase().includes(query) ||
+            coachFirst.toLowerCase().includes(query) ||
+            coachLast.toLowerCase().includes(query) ||
+            coachEmail.toLowerCase().includes(query) ||
+            coachPhone.toLowerCase().includes(query) ||
+            division.toLowerCase().includes(query);
       });
    }
 
@@ -89,8 +102,7 @@ class storageService {
    }
    create(obj) {
       //append new object to data store
-      //  this.model.data = _.concat(this.model.data, obj);
-      this.model.data[obj.id] = obj;
+      this.model.data.push(obj);
       // persist in local storage by calling store()
       this.store();
    }
@@ -113,6 +125,8 @@ class storageService {
       if (this.getItem(removeId)) {
          _.remove(this.model.data, (team) => { return team.id === removeId; })
       }
+      // wipe out null entries from array if they exist
+      this.model.data = this.model.data.filter((item) => { return item != null });
       // persist in local storage by calling store()
       this.store();
    }
@@ -124,6 +138,11 @@ class storageService {
       return Math.max.apply(Math, this.model.data.map(item => {
          return item.id;
       })) + 1;
+   }
+   debugResetToPresetData() {
+      this.origModel = teamData;        //original data, should never change
+      this.model = _.cloneDeep(teamData);    //lodash, deep copy of data
+      this.store();
    }
 }
 
