@@ -1,0 +1,67 @@
+<div class="row tableHead">
+    <div class = "col-md-4 pl10">
+        <p><strong> <%=view.viewModel.list.listTitle%> </strong></p>
+    </div>
+    <div class = "col-md-4">
+        <button id="create" class="btn btn-dark col-md-1" data-toggle="modal" data-target="#formModal"> <strong>Create</strong> </button>
+    </div>
+    <div class = "col-md-4">
+        <div id="searchBar">
+            <form class="form-inline d-flex justify-content-left md-form form-sm">
+              <i class="fas fa-search ml-2" aria-hidden="true"></i>
+              <input class="form-control form-control-sm ml-3 w-95" type="text" placeholder="Search (in <%=view.viewModel.list.searchColLabel%>)"
+                aria-label="Search">
+            </form>
+        </div>
+    </div>
+</div>
+
+<table id='table' class="<%=view.viewModel.list.tableClasses%>">
+
+    <tr class="trow">
+        <% _.forEach(view.viewModel.fields, function(value, key){
+            console.log(`value is ${ JSON.stringify(value, null, 2) }`)
+            console.log(`label is ${ value.label }`)
+           if (!value.hidden && value.list) {%>
+        <th class="thead" id="<%=value.name%>"> <%=value.label%> </th>
+        <%}}) %>
+        <th class="thead"> Actions </th>
+    </tr>
+
+    <% view.viewModel.data.forEach((datum)=>{ %>
+        <%console.log(`datum is ${ JSON.stringify(datum, null, 2) }`)%>
+    <tr class="trow" data-toggle="tooltip" data-html="true" data-placement="top" title="<p><%=datum.name%><p><p><%=datum.notes%><p>">
+
+        <% view.viewModel.fields.forEach((field)=>{ %>
+
+            <%if(!field.hidden && field.list && !field.lookupName){%>
+        <td><div class="anim a<%=datum.id%>"><%=view.getFieldValue(field, datum, false)%></div></td>
+            <%}%>
+
+            <%if(!field.hidden && field.lookupName){%>
+                
+                <%let id = datum[field.name]%>
+                <%console.log(`id is ${id}`)%>
+                <%console.log(`current lookup is ${ JSON.stringify(view.storage.lookups, null, 2) }`)%>
+                <%console.log(`lookup query result is ${ JSON.stringify(_.find(view.storage.lookups[field.lookupName], {'id':id})) }`)%>
+                <%let name = _.find(view.storage.lookups[field.lookupName], {'id':id}).label%> 
+        <td><div class="anim a<%=datum.id%>"><%=name%></div></td>    
+            <%}%>
+
+        <%})%>
+        <td>
+            <div class="anim a<%=datum.id%>">
+            <%let editIcon = "fas fa-pen"%>
+            <%let deleteIcon = "fas fa-trash"%>
+            <%let infoIcon = "fas fa-info-circle"%>
+
+            <button type="button" id="e<%=datum.id%>" class="table-button editer" data-toggle="modal" data-target="#formModal"><i class="<%=editIcon%>"></i></button>
+            <button type="button" id="<%=datum.id%>" class="table-button deleter" data-toggle="modal" data-target="#Modal"><i class="<%=deleteIcon%>"></i></button>
+            <button type="button" class="popover-dismiss" data-container="body" data-toggle="popover" data-placement="top" title="<%=datum.name%>" data-content="popOver"><i class="<%=infoIcon%>"></i></button>
+            </div>
+        </td>
+    </tr>
+    <%})%>
+    
+
+</table>

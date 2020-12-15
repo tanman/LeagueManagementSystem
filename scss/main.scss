@@ -1,7 +1,7 @@
 // general styles
 .container {
     // background-color: black;
-    width: 100%;
+    // width: 100%;
     margin-top: 10vh;
 }
 // strong {
@@ -15,22 +15,6 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
-
-// smooth modal opening
-
-body.modal-open-noscroll 
-{
-  margin-right: 0!important;
-  overflow: hidden;
-}
-.modal-open-noscroll .navbar-default, .modal-open .navbar-default 
-{
-  margin-right: 0!important;
-}
-.modal-open {
-    overflow: inherit!important;
-}
-
 
 // nav
 .navbar-dark {
@@ -54,10 +38,15 @@ body.modal-open-noscroll
 // table styles
 table {
     opacity: 97%;
+    width: 100%;
 }
-#sortIcon {
-    margin-left: 5px;
+.tableHead{
+    background-color: #212528;
+    color: white;
 }
+// #sortIcon {
+//     margin-left: 5px;
+// }
 .col-head {
     font-weight: bold;
 }
@@ -75,6 +64,9 @@ button {
 }
 i {
     color: white;
+}
+#create {
+    opacity: 97%;
 }
 
 

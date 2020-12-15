@@ -1,0 +1,26 @@
+<form id="<%=view.viewModel.form.id%>" class="needs-validation" novalidate>
+
+    <% _.forEach(view.viewModel.fields, function(field)
+    {%>
+
+    <% if(field.inputType == "select" && !field.hidden) { 
+            let options=view.storage.lookups[field.lookupName];
+            %>
+        <label for="<%=field.id%>" class="mt-3"><%=field.label%></label>
+        <select class="custom-select d-block w-100 <%=field.inputClasses%>"" id="<%=field.id%>" required name="<%=field.name%>">
+            <option selected value=""><%=field.placeholder%></option>
+        </select>
+        <div class="invalid-feedback">
+        </div>
+    <%}
+    else if(!field.hidden){ %>
+        <label for="<%=field.id%>" class="mt-3"><%=field.label%></label>
+        <input type="text" class="form-control <%=field.inputClasses%>" id="<%=field.id%>" required name="<%=field.name%>">
+        <div class="invalid-feedback">
+        </div>
+    <% } %>
+
+    <% })%>
+    <button class="btn btn-secondary btn-lg btn-block mt-4 disabled" id="formModalSubmit" type="submit">Submit</button>
+
+</form>

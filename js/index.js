@@ -1,44 +1,22 @@
 import controller from './controller.js';
+import playerViewModel from './viewModels/playerViewModel.js';
+import teamViewModel from './viewModels/teamViewModel.js';
+import coachViewModel from './viewModels/coachViewModel.js';
 
 $(() => {
-    let control = new controller();
-    control.viewModel.buildTable([], true);
-    control.setTableColumnHeadHandlers();
-    control.setTableSearchBarHandler();
-    control.setRowDeleteHandlers();
-    control.setRowEditHandlers();
-    control.initializeModal();
-    control.setAddTeamHandler();
-    
-    $('.popover-dismiss').popover({
-        trigger: 'focus'
-    })
+    let control = new controller(playerViewModel, teamViewModel, coachViewModel, "listHook","formHook", "localhost:8080");
+    control.renderTeamListView();
 
-    // row tooltips
-    $('tr').tooltip()
-
-    // smoother modal opening
-    $('.modal').on('show.bs.modal', function () {
-        if ($(document).height() > $(window).height()) {
-            // no-scroll
-            $('body').addClass("modal-open-noscroll");
-        }
-        else {
-            $('body').removeClass("modal-open-noscroll");
-        }
+    $('#teamsButton').on('click', ()=>{
+        control.renderTeamListView();
     });
-    $('.modal').on('hide.bs.modal', function () {
-        $('body').removeClass("modal-open-noscroll");
+    $('#playersButton').on('click', ()=>{
+        control.renderPlayerListView();
     });
-
-    // aside button
-    $('#asideExpand').on('click', (e)=>{
-        $('#aside')[0].animate({'width': '100px'}, 150);
-        $('#aside').css({'width':'150px'});
+    $('#coachesButton').on('click', ()=>{
+        control.renderCoachListView();
     });
 
     // nav slide animation
     $('#logo').toggleClass('open');
-
-
 })
