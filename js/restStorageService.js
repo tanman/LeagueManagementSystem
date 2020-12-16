@@ -1,5 +1,3 @@
-import teamData from './viewModels/teamData.js';
-
 class storageService {
    "use strict";
 
