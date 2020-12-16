@@ -1,4 +1,3 @@
-// import View from './views/view.js';
 import PlayerView from './views/playerView.js';
 import CoachView from './views/coachView.js';
 import TeamView from './views/teamView.js';

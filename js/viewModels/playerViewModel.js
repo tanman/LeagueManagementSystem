@@ -1,6 +1,10 @@
 var playerViewModel= {
     viewType: "player",
     person_type: "player",
+    functionality: {
+        searchState: ""
+    },
+    defaultLicenseLevel: 4,
     list: {
         //You can use these as default options for your calls to your REST Service 'list' function
         options: {
@@ -17,7 +21,7 @@ var playerViewModel= {
         listTitle: "Player List",    //title above list
         templateUrl: "js/templates/listTemplate.html",  //path to lodash template
         id: "player-list",
-        tableClasses:"table table-striped table-dark",   //bootstrap classes to apply to my table
+        tableClasses:"table table-striped table-dark table-hover",   //bootstrap classes to apply to my table
         searchColLabel: "first name",
         searchColName: "first_name"
     },
@@ -232,7 +236,8 @@ var playerViewModel= {
                 invalidMessage: "Invalid Password-must have 1 upper case, 1 lower case, min 8 chars",
                 regex: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/im
             }
-        },{
+        },
+        {
             label: "Notes",
             name: "notes",
             inputType: "text",
@@ -244,7 +249,6 @@ var playerViewModel= {
                 required:false
             }
         }
-    
     ]
 }
 

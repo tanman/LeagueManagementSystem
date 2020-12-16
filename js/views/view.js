@@ -1,15 +1,8 @@
 import storageService from '../restStorageService.js'
-// import teamData from '../viewModels/teamData.js';
-// import teamsTable from '../templates/teamsTable.js';
-import modalForm from '../templates/modalForm.js';
 
 class View {
 
     constructor(viewModel, listContainerId, formContainerId, apiUrl, apiKey) {
-        // old way to interface with local storage
-        // this.storage = new storageService(teamData, 'data');
-        // this.storage.debugResetToPresetData();
-
         // restapi service setup
         this.storage = new storageService(apiUrl, apiKey, viewModel.list.options);
 
@@ -146,9 +139,7 @@ class View {
             }
             else {
                 // if currently sorted by this col, sort to the opposite direction
-                console.log(`sort dir was ${this.viewModel.list.options.sort_dir}`);
                 sort_dir === "asc" ? this.viewModel.list.options.sort_dir = 'desc' : this.viewModel.list.options.sort_dir = 'asc';
-                console.log(`sort dir is now ${this.viewModel.list.options.sort_dir}`);
             }
 
             // rerender the table
@@ -159,6 +150,7 @@ class View {
     setTableSearchBarHandler() {
         $(`#searchBar > form > input`).on('keyup', (ev) => {
             let query = ev.target.value;
+            this.viewModel.functionality.searchState = query;
 
             if (query && query.length > 2) {
                 // send search query
@@ -166,9 +158,11 @@ class View {
                 this.viewModel.list.options.filter_str = ev.target.value;
                 this.renderList();
             }
-            // else{
-            //     this.rerenderTable(data)
-            // }
+            else if(!query){
+                this.viewModel.list.options.filter_col = "";
+                this.viewModel.list.options.filter_str = "";
+                this.renderList();
+            }
         });
     }
     // action button event handlers
@@ -197,7 +191,6 @@ class View {
             if (valid) {
                 // serialize the form
                 let serializedData = $(`#${this.viewModel.form.id}`).serializeArray();
-                console.log(serializedData);
                 let newObj = {};
 
                 // // hide modal, hit the api, rebuild the table
@@ -210,20 +203,20 @@ class View {
                     if(this.viewModel.person_type){
                         newObj.person_type = this.viewModel.person_type;
                     }
-                    console.log(newObj);
+                    // set a default license level for players, as that field is only for coaches
+                    if(this.viewModel.person_type==="player"){
+                        newObj.license_level_id = this.viewModel.defaultLicenseLevel;
+                    }
                     console.log(`yeah I'm thinkin I wanna ${this.viewModel.form.submitAction}`);
                     await this.storage.create(newObj);
                 }
                 else if(this.viewModel.form.submitAction === "update"){
                     // initialize data payload with last known data 
                     newObj = _.find(this.storage.getList, {"id": parseInt(this.viewModel.form.dataId)})
-                    // delete newObj.id;
-                    console.log();
                     // make it into proper format for the api
                     serializedData.forEach(function (obj) {
                         newObj[obj.name] = obj.value;
                     });
-                    console.log(newObj);
                     console.log(`yeah I'm thinkin I wanna ${this.viewModel.form.submitAction}`);
                     let relevantId = this.viewModel.form.dataId;
                     await this.storage.update(relevantId, newObj);
@@ -247,20 +240,20 @@ class View {
             // assign the modal's delete button to delete the desired team
             // need to clear any pre-existing handlers first
             $("#teamDelete").off('click');
-            $("#teamDelete").on('click', () => {
+            $("#teamDelete").on('click', async () => {
 
                 // animate row deletion, 
                 // then delete the row,
                 // and disable the tooltips 
                 // otherwise they'll get stuck
-                this.storage.delete(id);
-                this.renderList(false);
                 let animationTime = 200;
                 $('.trow').tooltip('disable');
                 $(`.a${id}`).slideUp(animationTime, () => {
                     // reactivate tooltips
                     $('tr').tooltip('enable');
                 });
+                await this.storage.delete(id);
+                await this.renderList(false);
             });
 
         });
@@ -282,13 +275,12 @@ class View {
                 }
                 else if (!field.hidden && field.inputType === "select" && field.lookupName) {
                     let id = entry[field.name]
-                    console.log(`#${field.name}${id}`);
                     $(`#${field.name}${id}`).prop('selected', true);
                 }
             });
 
             ////////////////////////////////////////////////////////////////////////////////////////
-            console.log('validation triggered');
+            // console.log('validation triggered');
             let $fields = $('.verify');
             let viewModelFields = this.viewModel.fields
             let valid = true;
@@ -388,7 +380,6 @@ class View {
 
         // validate required fields handlers
         let checkRequired = (ev) => {
-            console.log('validation triggered');
             // get data 
             let $input = $(`#${ev.target.id}`);
             // get validation data
@@ -437,87 +428,7 @@ class View {
             }
         }
         $('.verify').on({'blur': checkRequired, 'keyup': checkRequired});
-
-        // // validate handlers for format checking
-        // let checkFormat = (ev) => {
-        //     console.log('keyup event triggered for val');
-        //     // get data 
-        //     let $input = $(`#${ev.target.id}`);
-        //     // get validation data
-        //     let field = _.find(this.viewModel.fields, { "id": ev.target.id });
-        //     // and validate it
-        //     if (field.validation.regex) {
-        //         if (field.validation.regex.test($input.val())) {
-        //             $input.removeClass("is-invalid").addClass("is-valid");
-        //             // wiping this as I've been seeing weird bootstrap behavior where
-        //             // is-invalid is triggered multiple invalid feedback divs
-        //             $input.next().text('');
-        //         }
-        //         else {
-        //             $input.removeClass("is-valid").addClass("is-invalid");
-        //             $input.next().text(`${field.validation.invalidMessage}`);
-        //         }
-        //     }
-        // }
-        // $('.re').on('keyup', checkFormat);
     }
 }
 
 export default View;
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // OLD BUILD TABLE
-/*
-buildTable(fromData = [], animate = false) {
-    // sort the model by the params in the local storage
-    this.storage.sort([this.storage.model.viewModel.sortColumn], [this.storage.model.viewModel.sortDirection], true);
-
-    let data;
-    fromData.length > 0 ? data = fromData : data = this.storage.list()
-
-    // begin table building
-    $("table").remove();
-    let table = new teamsTable();
-    let editIcon = "fas fa-pen";
-    let deleteIcon = "fas fa-trash";
-    let infoIcon = "fas fa-info-circle";
-    $("#teamsTable").append(table.skele());
-    data.forEach(team => {
-        if (team) {
-            // tooltip content
-            let toolTip = `${team.name}<br>League: ${team.league}<br>Coach: ${team.coachFirst} ${team.coachLast}<br>${team.coachEmail} ${team.coachPhone}`
-            let popOver = `League: ${team.league} Coach: ${team.coachFirst} ${team.coachLast}`
-            let row = $(`<tr id="t${team.id}" data-toggle="tooltip" data-html="true" data-placement="bottom" title="${toolTip}"></tr>`);
-
-            // name
-            row.append(`<td scope="row"><strong>${team.name}</strong></td>`);
-            // league
-            row.append(`<td>${team.league}</td>`);
-            // coach
-            row.append(`<td>${team.coachFirst} ${team.coachLast}</td>`);
-            // team admin
-            row.append(`<td>${team.coachEmail}<br>${team.coachPhone}</td>`);
-            // division
-            row.append(`<td>${team.division}</td>`);
-            // actions
-            let infoPopover = `<button type="button" class="popover-dismiss" data-toggle="popover" data-placement="top" title="${team.name}" data-content="${popOver}"><i class="${infoIcon}"></i></button>`
-            let deleteButton = `<button type="button" id="${team.id}" class="table-button deleter" data-toggle="modal" data-target="#Modal"><i class="${deleteIcon}"></i></button>`
-            let editButton = `<button type="button" id="e${team.id}" class="table-button editer" data-toggle="modal" data-target="#formModal"><i class="${editIcon}"></i></button>`
-
-            row.append(`<td>${editButton}${deleteButton}${infoPopover}</td>`);
-
-            $("#teamsTableBody").append(row);
-            // animation hooks
-            $(`#t${team.id} > td`).wrapInner(`<div class="a${team.id}"></div>`);
-            if (animate) {
-                $(`.a${team.id}`).hide();
-                $(`.a${team.id}`).slideDown();
-            }
-        }
-    });
-
-    // place sort icon
-    this.putSortIcon(this.storage.getSortCol(), this.storage.getSortDirection())
-}
-*/
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
