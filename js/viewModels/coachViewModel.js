@@ -1,6 +1,9 @@
 var coachViewModel= {
     viewType: "coach",
     person_type: "coach",
+    functionality: {
+        searchState: ""
+    },
     list: {
         //You can use these as default options for your calls to your REST Service 'list' function
         options: {
@@ -17,7 +20,7 @@ var coachViewModel= {
         listTitle: "Coach List",    //title above list
         templateUrl: "js/templates/listTemplate.html",  //path to lodash template
         id: "player-list",
-        tableClasses:"table table-striped table-dark",   //bootstrap classes to apply to my table
+        tableClasses:"table table-striped table-dark table-hover",   //bootstrap classes to apply to my table
         searchColLabel: "first name",
         searchColName: "first_name"
     },
@@ -52,6 +55,19 @@ var coachViewModel= {
     //Meta data for fields.  You can use for rendering your list dynamically.
     //if 'list' is true, then you should render this field in your list
     fields: [
+        {
+            label: "User Name",
+            name: "user_name",
+            inputType: "text",
+            id: "usernameInput",
+            placeholder: "Enter your user name here",
+            list: true,
+            inputClasses: 'verify',
+            validation: {
+                required: true,
+                requiredMessage: "User name is required!"
+            }
+        },
         {
             label: "Id",
             name: "id",
@@ -118,20 +134,6 @@ var coachViewModel= {
                 requiredMessage: "License level is required!"
             }
         },
-        {
-            label: "User Name",
-            name: "user_name",
-            inputType: "text",
-            id: "usernameInput",
-            placeholder: "Enter your user name here",
-            list: false,
-            inputClasses: 'verify',
-            validation: {
-                required: true,
-                requiredMessage: "User name is required!"
-            }
-        },
-
         {
             label: "Address 1",
             name: "address1",

@@ -1,4 +1,7 @@
 var teamViewModel= {
+    functionality: {
+        searchState: ""
+    },
     viewType: "team",
     list: {
         options: {
@@ -15,7 +18,7 @@ var teamViewModel= {
         listButtonId: "teamButton",
         templateUrl: "js/templates/listTemplate.html",
         id: "my-list",
-        tableClasses:"table table-striped table-dark",
+        tableClasses:"table table-striped table-dark table-hover",
         searchColLabel: "name",
         searchColName: "name"
     },
@@ -100,6 +103,18 @@ var teamViewModel= {
                 requiredMessage: "A league is required!"
             }
         },
+        {
+            label: "Notes",
+            name: "notes",
+            inputType: "text",
+            id: "notesInput",
+            placeholder: "Enter your Notes",
+            list: false,
+            inputClasses: 'is-valid',
+            validation: {
+                required:false
+            }
+        }
     ]
 
 }

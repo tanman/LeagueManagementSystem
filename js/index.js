@@ -4,7 +4,9 @@ import teamViewModel from './viewModels/teamViewModel.js';
 import coachViewModel from './viewModels/coachViewModel.js';
 
 $(() => {
-    let control = new controller(playerViewModel, teamViewModel, coachViewModel, "listHook","formHook", "localhost:8080");
+    let awsHost = "lms-rest-api.us-east-2.elasticbeanstalk.com";
+    let localHost = "localhost:8080";
+    let control = new controller(playerViewModel, teamViewModel, coachViewModel, "listHook","formHook", awsHost);
     control.renderTeamListView();
 
     $('#teamsButton').on('click', ()=>{
